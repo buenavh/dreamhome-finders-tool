@@ -1,0 +1,61 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" "shrink-to-fit=no">
+		<title>DreamHome Finders Demo</title>
+
+		<!-- BOOTSTRAP 4 CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+		<!-- FONT AWESOME ICONS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+	<base href="/"> <!-- set base href for html5-->
+	<body ng-controller="MainController as vm">
+		<div>
+  			<header class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed">
+				<div><a class="navbar-brand" href="/home">DreamHome Finders</a></div>
+
+				<div class="navbar-nav ml-auto dropdown">
+					<a class="nav-item nav-link active" href="" data-toggle="dropdown">
+						<i class="fa fa-lg fa-user-circle" aria-hidden="true"></i> username
+
+						<!-- dropdown menu-->
+						<div class="dropdown-menu dropdown-menu-right">
+							<a class="dropdown-item" href="">Add Developer Info</a>
+							<a class="dropdown-item" href="">Update Developer Info</a>
+							<a class="dropdown-item" href="">Add User</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="">Logout</a>
+						</div>
+					</a>
+				</div>
+  			</header>
+
+			<!-- Content here -->
+			<section ng-view>{{vm.content}}</section>
+
+			<!-- footer goes here -->
+			<footer></footer>
+		</div>
+		
+		<!-- LIBRARIES -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-route.js"></script>
+
+		<!-- CONTROLLERS -->
+		<script src="./client/app.js"></script>
+		<script src="./client/controllers/login.controller.js"></script>
+		<script src="./client/controllers/home.controller.js"></script>
+
+		<!-- SERVICES -->
+
+		<!-- BOOTSTRAP 4 REQUIRED FILES -->
+		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+	</body>
+</html>
