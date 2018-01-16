@@ -9,9 +9,6 @@
 		MainController.$inject = [];
 		function MainController() {
 			var vm = this;
-
-			vm.content = "hello world";
-
 		};
 
 		//include routeProvider & locationProvider to detect your URL changes
@@ -19,9 +16,8 @@
 		function config($routeProvider, $locationProvider) {
 			$routeProvider
 				.when("/login", {
-					//css				: "app/home/home.css",
 					templateUrl		: "./client/components/login.html",
-					controller		: "LoginController",
+					controller 		: "LoginController",
 					controllerAs	: "vm"
 				})
 
