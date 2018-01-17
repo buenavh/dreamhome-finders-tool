@@ -27,6 +27,18 @@
 					controllerAs	: "vm"	
 				})
 
+				.when("/users", {
+					templateUrl		: "./client/components/user.html",
+					controller		: "UserController",
+					controllerAs	: "vm"		
+				})
+
+				.when("/developers", {
+					templateUrl		: "./client/components/developer.html",
+					controller		: "DevController",
+					controllerAs	: "vm"		
+				})
+
 				.otherwise ("/login");
 
 			$locationProvider.html5Mode(true);
