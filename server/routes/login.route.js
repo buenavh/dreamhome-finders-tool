@@ -8,9 +8,11 @@ module.exports = function (app, passport) {
         res.render('index');        
     });
 
+    /*
     app.get('/login', function (req, res) {
         res.render('login');
     });
+    */
 
     app.get('/signup', function (req, res) {
         res.render('signup', {message: req.flash('signupMessage')});
@@ -20,6 +22,7 @@ module.exports = function (app, passport) {
         res.render('profile', {user: req.user});
     });
 
+    
     app.get('/auth/facebook', passport.authenticate('facebook', { 
         scope: ['public_profile', 'email']
     }));
@@ -28,6 +31,7 @@ module.exports = function (app, passport) {
         failureRedirect: '/login' }), function (req, res) { 
         res.redirect('/');
     });
+    
 
     app.get('/logout', function (req, res) {
         req.logout();
@@ -40,17 +44,12 @@ module.exports = function (app, passport) {
         failureFlash: true
     }));
 
-    /*
     app.post('/login', passport.authenticate('local-login', {
         successRedirect: '/developer',
         failureRedirect: '/login',
         failureFlash: true
     }));
-    */
-
-    app.post("/login", passport.authenticate('local-login'), function(req, res) {
-        res.json(req.user);
-    });
+    
     
     /*
     // AngularJS: Facebook authorization routes (Not working)
@@ -70,4 +69,5 @@ module.exports = function (app, passport) {
         authenticator (req, res, next);
     })
     */
+    
 }

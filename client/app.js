@@ -2,7 +2,7 @@
 	'use strict'
 
 	angular
-		.module("app", ["ngRoute"])
+		.module("app", ['ngRoute'])
 		.controller("MainController", MainController)
 		.config(config);
 		
@@ -15,38 +15,43 @@
 		//include routeProvider & locationProvider to detect your URL changes
 		config.$inject = ['$routeProvider', '$locationProvider', '$httpProvider'];
 		function config($routeProvider, $locationProvider, $httpProvider) {
+	
 			$routeProvider
 				.when("/login", {
-					templateUrl		: "./client/components/login.html",
+					templateUrl		: "client/components/login.html",
 					controller 		: "LoginController",
 					controllerAs	: "vm"
 				})
 
 				.when("/home", {
-					templateUrl		: "./client/components/home.html",
+					templateUrl		: "client/components/home.html",
 					controller		: "HomeController",
 					controllerAs	: "vm"	
 				})
 
 				.when("/users", {
-					templateUrl		: "./client/components/user.html",
+					templateUrl		: "client/components/user.html",
 					controller		: "UserController",
 					controllerAs	: "vm"		
 				})
 
 				.when("/developers", {
-					templateUrl		: "./client/components/developer.html",
+					templateUrl		: "client/components/developer.html",
 					controller		: "DevController",
 					controllerAs	: "vm"		
 				})
 
 				.otherwise ("/login");
-
+				
+	
 			$locationProvider.html5Mode(true);
 			
-			$httpProvider.defaults.useXDomain = true;
+			/*
+			$httpProvider.interceptors.push('RetryInterceptor');
+            $httpProvider.interceptors.push('ResponseInterceptor');
+            $httpProvider.defaults.useXDomain = true;
 			delete $httpProvider.defaults.headers.common['X-Requested-With'];
-			$httpProvider.defaults.withCredentials = true;
+			*/
 		}	
 
 })();
