@@ -13,8 +13,8 @@
 		};
 
 		//include routeProvider & locationProvider to detect your URL changes
-		config.$inject = ["$routeProvider", "$locationProvider"];
-		function config($routeProvider, $locationProvider) {
+		config.$inject = ['$routeProvider', '$locationProvider', '$httpProvider'];
+		function config($routeProvider, $locationProvider, $httpProvider) {
 			$routeProvider
 				.when("/login", {
 					templateUrl		: "./client/components/login.html",
@@ -43,6 +43,10 @@
 				.otherwise ("/login");
 
 			$locationProvider.html5Mode(true);
-		}
+			
+			$httpProvider.defaults.useXDomain = true;
+			delete $httpProvider.defaults.headers.common['X-Requested-With'];
+			$httpProvider.defaults.withCredentials = true;
+		}	
 
 })();

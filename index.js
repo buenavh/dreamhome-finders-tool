@@ -10,13 +10,46 @@ var bodyParser		= require("body-parser");
 var cfenv           = require('cfenv');
 var path 			= require('path');
 var dotenv 			= require('dotenv').config();
+var passport        = require('passport');
+var session 		= require('express-session');
+var flash           = require('connect-flash');
+var morgan 			= require('morgan');
+var cookieParser 	= require('cookie-parser');
+
+app.use(morgan('dev')); // log request to the console
+app.use(cookieParser()); // read cookies (for auth)
+//configure body parser to allow us to use POST (i.e. req.body)
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 //configure statis server directory
 app.use(express.static(__dirname));
 
-//configure body parser to allow us to use POST (i.e. req.body)
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+// for passport
+app.use(session({
+    secret: process.env.SESSION_KEY,
+    resave: false,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+// fire up the index page for every request so angular app is triggered
+router.route("*")
+	.get(function(req, res) {
+		res.sendFile('./index.html', {root:__dirname});
+	});
+
+app.use(router);
+
+// controllers
+require('./server/controller/login.controller')(passport);
+// routes
+require('./server/routes/login.route')(app, passport);
+
+var dbCloudant = require('./server/service/cloudant.service');
+var db = dbCloudant.initDBConnection();
 
 // Add headers
 app.use(function (req, res, next) {
@@ -33,31 +66,12 @@ app.use(function (req, res, next) {
     next();
 });
 
+
 //SETUP THE ROUTES TO USE
 router.use(function(req, res, next) {
 	console.log("Processing");
 	next();
 });
-
-
-// fire up the index page for every request so angular app is triggered
-router.route("*")
-	.get(function(req, res) {
-		res.sendFile('./index.html', {root:__dirname});
-	});
-
-app.use(router);
-
-/*
-//FIRE UP THE SERVER
-app.listen(port, function () {
-	console.log("Initializing...");
-	console.log("Server started at " + port);
-});
-*/
-
-var dbCloudant = require('./server/service/cloudant.service');
-var db = dbCloudant.initDBConnection();
 
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
@@ -67,4 +81,3 @@ app.listen(appEnv.port, '0.0.0.0', function() {
   // print a message when the server starts listening
   console.log("server starting on " + appEnv.url);
 });
-
