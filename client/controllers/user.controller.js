@@ -11,3 +11,4 @@
 	function UserController() {
 		var vm = this;
 	};
+})();

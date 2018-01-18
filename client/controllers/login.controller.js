@@ -7,9 +7,8 @@
 		.module("app")
 		.controller("LoginController", LoginController);
 	
-	LoginController.$inject = [];
-	function LoginController() {
-		var vm = this;
+	LoginController.$inject = ['$scope'];
+	function LoginController($scope) {
 
 	};
 })();

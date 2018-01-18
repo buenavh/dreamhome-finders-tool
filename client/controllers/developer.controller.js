@@ -11,3 +11,4 @@
 	function DevController() {
 		var vm = this;
 	};
+})();

@@ -5,6 +5,7 @@
 		.module("app", ["ngRoute"])
 		.controller("MainController", MainController)
 		.config(config);
+		
 
 		MainController.$inject = [];
 		function MainController() {
@@ -43,4 +44,5 @@
 
 			$locationProvider.html5Mode(true);
 		}
+
 })();
