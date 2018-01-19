@@ -41,7 +41,7 @@
 					controllerAs	: "vm"		
 				})
 
-				.otherwise ("/login");
+				.otherwise ("/home");
 				
 	
 			$locationProvider.html5Mode(true);
