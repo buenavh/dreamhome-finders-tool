@@ -43,6 +43,7 @@ app.use(flash());
 require('./server/controller/login.controller')(passport);
 // routes
 require('./server/routes/login.route')(app, passport);  
+require('./server/routes/developer.route')(app);
 
 // fire up the index page for every request so angular app is triggered
 router.route("*")
