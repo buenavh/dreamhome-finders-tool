@@ -41,6 +41,12 @@
 					controllerAs	: "vm"		
 				})
 
+				.when("/search", {
+					templateUrl		: "client/components/search.html",
+					controller		: "SearchController",
+					controllerAs	: "vm"		
+				})
+
 				.otherwise ("/login");
 				
 	

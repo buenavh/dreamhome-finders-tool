@@ -27,4 +27,20 @@ module.exports = function (app) {
         });
     });
 
+    app.get('/search-developer', function(req, res) {
+        var name = req.query.name;
+               
+        db.find({selector: {developer_name: name}}, function (err, doc) {
+            if (err) {
+                res.json({err:err});
+                
+            } else {
+                console.log(JSON.stringify(doc.docs));
+                res.status(200).json(doc.docs);                
+            }
+
+        }); 
+              
+    });
+
 }
