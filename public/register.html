@@ -1,0 +1,73 @@
+<html ng-app="app">
+	<head>
+		<title>DHFI - Register</title>
+
+		<!-- BOOTSTRAP 4 CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+		<!-- FONT AWESOME ICONS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+	<base href="/">
+	<body ng-controller="controller as vm">
+		<div class="container mt-5 col-8">
+			<div class="form-group row">
+				<label class="col-2 col-form-label">Email Address</label>
+				<div class="col-10">
+					<input class="form-control" type="email" ng-model="vm.newUser.email">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-2 col-form-label">Password</label>
+				<div class="col-10">
+					<input class="form-control" type="password" ng-model="vm.newUser.password">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-2 col-form-label">User Group</label>
+				<div class="col-10">
+					<select class="form-control" ng-model="vm.newUser.ugroup">
+						<option disabled selected value="">--- SELECT UGROUP ---</option>
+						<option value="1">UGROUP 1</option>
+						<option value="2">UGROUP 2</option>
+						<option value="3">UGROUP 3</option>
+					</select>
+				</div>	
+			</div>
+
+			<div class="form-group row">
+				<label class="col-2 col-form-label">Account Status</label>
+				<div class="col-10">
+					<div class="form-check form-check-inline">
+						<label class="form-check-label">
+							<input class="form-check-input" type="radio" name="gridRadios" value="active"  ng-init="vm.newUser.account_status = 'active'" ng-model="vm.newUser.account_status"> Active
+						</label>
+					</div>
+
+					<div class="form-check form-check-inline">
+						<label class="form-check-label">
+							<input class="form-check-input" type="radio" name="gridRadios" value="inactive" ng-model="vm.newUser.account_status"> Inactive
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="col-10 ml-auto">
+					<button class="btn btn-primary col-2" ng-click="vm.signup(vm.newUser)">Create</button>
+					<button class="btn btn-danger col-2" ng-click="vm.cancel()">Cancel</button>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.js"></script>
+
+		<script src="../controller/controller.js"></script>
+
+		<!-- BOOTSRAP 4 REQUIRED FILES -->
+		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+	</body>
