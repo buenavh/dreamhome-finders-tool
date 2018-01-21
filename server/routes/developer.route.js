@@ -61,10 +61,23 @@ module.exports = function (app) {
 
     });
 
-    app.get('/search-developer', function(req, res) {
-        var name = req.query.name;
+    app.get('/search-all', function(req, res) { 
+        var value = req.query.name;
                
-        db.find({selector: {developer_name: name}}, function (err, doc) {
+        db.find({selector: {
+			"$or": [
+				{ developer_name: {$regex: "^(?i)" + value } },
+				{ developer_address: {$regex: "^(?i)" + value } },
+				{ developer_contact_person: value },
+				{ developer_project_project_name: {$regex: "^(?i)" + value } },
+				{ developer_project_address: {$regex: "^(?i)" + value } },
+				{ developer_project_contact_person: value },
+				{ developer_project_email: value },
+				{ developer_project_contact_phone: value },
+				{ developer_project_commission_rate: value },
+				{ developer_project_sales_cluster: {$regex: "^(?i)" + value } },
+            ]}
+		}, function (err, doc) {
             if (err) {
                 res.json({err:err});
                 
@@ -74,6 +87,22 @@ module.exports = function (app) {
             }
 
         }); 
+              
+    });
+
+    app.get('/search-developer', function(req, res) {
+        var name = req.query.name;
+
+        db.find({selector: { developer_name: {$regex: "^(?i)" + name } }}, function (err, doc) {
+            if (err) {
+                res.json({err:err});
+                
+            } else {
+                console.log(JSON.stringify(doc.docs));
+                res.status(200).json(doc.docs);                
+            }
+
+        });
               
     });
 

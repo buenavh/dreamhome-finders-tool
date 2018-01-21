@@ -66,6 +66,21 @@
 				console.log(text);
 				$http({
 					method: 'GET',
+					url: '/search-all',
+					params: {name: text}
+				}).then(function successCallback(response) {
+					$scope.devResults = response.data;
+					console.log($scope.devResults);
+					
+				}, function errorCallback(response) {
+					$scope.error = response;
+				});
+			}
+
+			vm.searchDev = function(text) {
+				console.log(text);
+				$http({
+					method: 'GET',
 					url: '/search-developer',
 					params: {name: text}
 				}).then(function successCallback(response) {
