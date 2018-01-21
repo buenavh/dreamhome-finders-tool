@@ -1,7 +1,7 @@
 {
   "name": "dreamhome_finders_recode",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "dependencies": {
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",

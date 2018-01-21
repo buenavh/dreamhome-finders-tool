@@ -41,6 +41,9 @@ require('./controller/passport.controller')(passport);
 
 //setup routes
 require('./server/routes/passport.route')(app, passport);  
+require('./server/routes/developer.route')(app);  
+
+// initialize Cloudant connection
 var db = dbCloudant.initDBConnection();
 
 // Add headers

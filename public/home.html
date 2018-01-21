@@ -19,13 +19,39 @@
 			</div>
 		</div>
 
-		<div class="container mt-5 mx-auto col-4">
+		<div class="container mt-5 mx-auto col-6">
 			<div class="btn-group-md" role="group" aria-label="First group">
 				<a class="btn btn-primary" href="/developer/add">Add Developer Info</a>
-				<!--a class="btn btn-primary" href="/developer">Edit Developer Info</a-->
+				<a class="btn btn-primary" href="/developer/update">Update Developer Info</a>
 				<a class="btn btn-primary" href="/register">Add User</a>
 			</div>
 		</div>
+
+		<div class="form-group" ng-show="devResults.length > 0">            
+            <table class="table table-striped" border="0" width="80%" cellpadding="1" cellspacing="1" >
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Developer Name</th>
+						<th>Project Name</th>
+						<th>Developer Project Email</th>
+						<th>Sales Cluster</th>                     
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="res in devResults track by $index">
+                        <td>{{ res._id }}</td>
+						<td>{{ res.developer_name }}</td>
+						<td>{{ res.developer_project_project_name }}</td>
+						<td>{{ res.developer_project_email }}</td>
+						<td>{{ res.developer_project_sales_cluster }}</td>
+						<!-- <td><a class="input-group-addon" href="/developer/update?id={{res._id}}"> Update</button></td>	-->		
+						<!-- <td><button class="input-group-addon" ng-click="vm.update(res._id)"> Update</button></td> -->
+					</tr>  
+				</tbody>
+				
+            </table>        
+        </div>
 
 		<div>{{vm.role}}</div>
 
