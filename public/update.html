@@ -9,39 +9,8 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<base href="/">
-	<body ng-controller="controller as vm">
-		<div class="container mt-5">
-			<div class="input-group mx-auto col-8">
-				<input type="text" class="form-control" placeholder="Search Developer" aria-describedby="btnGroupAddon" ng-model="vm.searchText">
-				<button class="input-group-addon" ng-click="vm.searchDev(vm.searchText)">
-					<i class="fa fa-search" aria-hidden="true"></i>
-				</button>
-			</div>
-		</div>
-
-		<div class="container" ng-show="devResults.length > 0">            
-            <table class="table table-striped" border="0" width="80%" cellpadding="1" cellspacing="1" >
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Developer Name</th>
-						<th>Project Name</th>
-						<th>Developer Project Email</th>                     
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="res in devResults track by $index">
-                        <td>{{ res._id }}</td>
-						<td>{{ res.developer_name }}</td>
-						<td>{{ res.developer_project_project_name }}</td>
-						<td>{{ res.developer_project_email }}</td>
-						<td><button class="input-group-addon" ng-click="vm.updateSearch(res._id)"> View</button></td>
-                    </tr>                   
-				</tbody>  				
-            </table>        
-        </div>
-
-        <div class="container mt-5 col-8" ng-show="vm.infoResults.length > 0">
+	<body ng-controller="DeveloperCtrl as vm">
+        <div class="container mt-5 col-10">
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Developer Name</label>
 				<div class="col-10">
@@ -59,7 +28,7 @@
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Contact Person</label>
 				<div class="col-10">
-					<input class="form-control" type="text" ng-model="vm.project_contact_person" value="{{vm.project_contact_person}}">
+					<input class="form-control" type="text" ng-model="vm.contact_person" value="{{vm.contact_person}}">
 				</div>
 			</div>
 
@@ -118,8 +87,7 @@
                 <input class="form-control" type="text" ng-model="vm._id" value="{{vm._id}}">
                 <input class="form-control" type="text" ng-model="vm._rev" value="{{vm._rev}}">
             </div>
-            
-            
+                        
 
 			<div class="form-group row">
 				<div class="col-8 mx-auto">
@@ -134,6 +102,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.js"></script>
 
 		<script src="../controller/controller.js"></script>
+		<script src="../controller/developer.controller.js"></script>
 
 		<!-- BOOTSRAP 4 REQUIRED FILES -->
 		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>

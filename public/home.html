@@ -19,10 +19,10 @@
 			</div>
 		</div>
 
-		<div class="container mt-5 mx-auto col-6">
+		<div class="container mt-5 mx-auto col-4">
 			<div class="btn-group-md" role="group" aria-label="First group">
 				<a class="btn btn-primary" href="/developer/add">Add Developer Info</a>
-				<a class="btn btn-primary" href="/developer/update">Update Developer Info</a>
+				<!-- <a class="btn btn-primary" href="/developer/update">Update Developer Info</a> -->
 				<a class="btn btn-primary" href="/register">Add User</a>
 			</div>
 		</div>
@@ -45,8 +45,8 @@
 						<td>{{ res.developer_project_project_name }}</td>
 						<td>{{ res.developer_project_email }}</td>
 						<td>{{ res.developer_project_sales_cluster }}</td>
-						<!-- <td><a class="input-group-addon" href="/developer/update?id={{res._id}}"> Update</button></td>	-->		
-						<!-- <td><button class="input-group-addon" ng-click="vm.update(res._id)"> Update</button></td> -->
+						<!-- <td><a class="input-group-addon" href="/developer/update?id={{res._id}}"> Update</button></td> -->
+						<td><button class="btn btn-primary" ng-click="vm.update(res._id)"> Update Developer Info</button></td>
 					</tr>  
 				</tbody>
 				

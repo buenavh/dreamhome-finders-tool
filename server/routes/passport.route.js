@@ -26,9 +26,11 @@ module.exports = function (app, passport) {
         res.sendFile("developer.html", {root:path.join(__dirname, "../../public")});
     });
 
+    /*
     app.get('/developer', function (req, res) {
         res.sendFile("developer.html", {root:path.join(__dirname, "../../public")});
     });
+    */
 
     app.get('/profile', require('connect-ensure-login').ensureLoggedIn(), function (req, res) {
         res.render('profile', {user: req.user});
