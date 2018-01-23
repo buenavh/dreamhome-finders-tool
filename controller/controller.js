@@ -10,7 +10,6 @@
 		controller.$inject = ["$http", "$window"];
 		function controller($http, $window) {
 			var vm = this;
-			console.log("IM loading");
 
 			vm.cancel = function() {
 				$window.location.href = "/home";
@@ -23,21 +22,18 @@
 				.then(function(response) {
 					// vm.loginError = response.loginError;
 					//need to save data after login so we know user's role
-					// if (response.data.success) {
-					// 	//$window.location.href = "/home";
-					// }
+					if (response.data.success) {
+						// test res redirect as well
+						$window.location.href = "/home";
+					}
 
-					// else {
-					// 	$window.location.href = "/login";;
-					// }
+					else {
+						 $window.location.href = "/login";;
+					}
 
 				}, function() {
 					vm.loginError = 'Authentication failed';
 				})
-			}
-
-			vm.loginFB = function() {
-				$window.location = $window.location.protocol + "//" + $window.location.host + $window.location.pathname + "/auth/facebook";
 			}
 
 			//functions for register
@@ -54,23 +50,51 @@
 						$window.location.href = "/register";;
 					}
 
-				}, function() {
+				}, function () {
 						vm.registerError = 'Authentication failed';
 				})
 			}
 
 			//functions for home
 			vm.search = function(text) {
-				console.log(text);
-			}
+	            $http({
+	                method: 'GET',
+	                url: '/search-all',
+	                params: {name: text}
+            	})
+
+	            .then(function successCallback(response) {
+	                vm.searchResults = response.data;
+	                return ({status: "success"});
+	                
+	            }, function errorCallback(error) {
+	                vm.error = error;
+	                console.log(error);
+	            });
+	        }
 
 			//functions for developer
 			vm.addDev = function(dev) {
 				console.log(dev);
+
+				$http.post('/submit-developer', dev)
+
+				.then(function (res) {
+					console.log(res);
+					alert('Developer information insert completed.');
+					$window.location.href= '/home';
+				}, function (err) {
+					console.log(err);
+					alert('Developer information insert error.');
+				});
+			}
+
+			vm.editDev = function(id) {
+				$window.location.href = "/developer/update" +"?id=" + id;
 			}
 		};
 
-		//include routeProvider & locationProvider to detect your URL changes
+		//use locationProvider to prettfy urls
 		config.$inject = ['$locationProvider'];
 		function config($locationProvider) {
 

@@ -1,6 +1,6 @@
 <html ng-app="app">
 	<head>
-		<title>DHFI - New Developer</title>
+		<title>DHFI - Edit Developer</title>
 
 		<!-- BOOTSTRAP 4 CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
@@ -8,106 +8,99 @@
 		<!-- FONT AWESOME ICONS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
-	<base href= "/">
-	<body ng-controller="controller as vm">
-		<div class="container mt-5 col-10">
-			<!--div class="form-group row" ng-hide="vm.dev.developer_id === ''">
-				<label class="col-2 col-form-label">Developer Name</label>
-				<div class="col-10">
-					<input class="form-control" type="text" ng-model="vm.dev.developer_id">
-				</div>
-			</div -->
-
+	<base href="/">
+	<body ng-controller="DeveloperCtrl as vm">
+        <div class="container mt-5 col-10">
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Developer Name</label>
 				<div class="col-10">
-					<input class="form-control" type="text" ng-model="vm.dev.developer_name" value="{{vm.developer_name}}">
+					<input class="form-control" type="text" ng-model="vm.developer_name" value="{{vm.developer_name}}">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Developer Address</label>
 				<div class="col-10">
-					<input class="form-control" type="text" ng-model="vm.dev.developer_address">
+					<input class="form-control" type="text" ng-model="vm.developer_address" value="{{vm.developer_address}}">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Contact Person</label>
 				<div class="col-10">
-					<input class="form-control" type="text" ng-model="vm.dev.contact_person">
+					<input class="form-control" type="text" ng-model="vm.developer_contact_person">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Project Name</label>
 				<div class="col-10">
-					<input class="form-control" type="text" ng-model="vm.dev.project_name">
+					<input class="form-control" type="text" ng-model="vm.project_name" value="{{vm.project_name}}">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Project Address</label>
 				<div class="col-10">
-					<input class="form-control" type="text" ng-model="vm.dev.project_address">
+					<input class="form-control" type="text" ng-model="vm.project_address" value="{{vm.project_address}}">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Project Contact Person</label>
 				<div class="col-10">
-					<input class="form-control" type="text" ng-model="vm.dev.project_contact_person">
+					<input class="form-control" type="text" ng-model="vm.project_contact_person" value="{{vm.project_contact_person}}">
 				</div>
 			</div>
 
 				<div class="form-group row">
 				<label class="col-2 col-form-label">Project Contact Email</label>
 				<div class="col-10">
-					<input class="form-control" type="email" ng-model="vm.dev.project_contact_email">
+					<input class="form-control" type="email" ng-model="vm.project_contact_email" value="{{vm.project_contact_email}}">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Project Contact Phone</label>
 				<div class="col-10">
-					<input class="form-control" type="tel" ng-model="vm.dev.project_contact_phone">
+					<input class="form-control" type="tel" ng-model="vm.project_contact_phone" value="{{vm.project_contact_phone}}">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Project Commission Rate</label>
 				<div class="col-10">
-					<input class="form-control" type="number" min="1" max="10" value="1"  ng-init ="vm.dev.project_commission_rate = 1" ng-model="vm.dev.project_commission_rate">
+					<input class="form-control" type="number" min="1" max="10" value="1"  ng-init ="vm.project_commission_rate = 1" ng-model="vm.project_commission_rate" value="{{vm.project_commission_rate}}">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Sales Cluster</label>
 				<div class="col-10">
-					<select class="form-control" ng-model="vm.dev.sales_cluster">
-						<option disabled selected value="">--- SELECT CLUSTER ---</option>
-						<option value="North Cluster">North Cluster</option>
-						<option value="South Cluster">South Cluster</option>
-						<option value="East Cluster">East Cluster</option>
-						<option value="West Cluster">West Cluster</option>
-						<option value="Central Cluster">Central Cluster</option>
-						<option value="Others">Others</option>
+					<select class="form-control" ng-options="cluster for cluster in sales_clusters" ng-model="vm.project_sales_cluster" value="{{vm.project_sales_cluster}}">
+						
 					</select>
 				</div>	
-			</div>
+            </div>
+
+            <div class="form-group row" ng-hide="true">
+                <input class="form-control" type="text" ng-model="vm._id" value="{{vm._id}}">
+                <input class="form-control" type="text" ng-model="vm._rev" value="{{vm._rev}}">
+            </div>
+                        
 
 			<div class="form-group row">
 				<div class="col-8 mx-auto">
-					<button class="btn btn-primary col-3" ng-click="vm.addDev(vm.dev)">Save & Close</button>
-					<!-- <button class="btn btn-primary col-3" ng-click="vm.editDev(vm.dev)">Update & Close</button> -->
+					<button class="btn btn-primary col-3" ng-click="vm.updateDev(vm, vm._id, vm._rev)">Update & Close</button>
 					<button class="btn btn-danger col-3" ng-click="vm.cancel()">Cancel</button>
 				</div>
-			</div>
-		</div>
+			</div>        
+        </div>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.js"></script>
 
-		<script src="../controller/controller.js"></script>
+		<!-- <script src="../controller/controller.js"></script> -->
+		<script src="../controller/developer.controller.js"></script>
 
 		<!-- BOOTSRAP 4 REQUIRED FILES -->
 		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>

@@ -9,12 +9,33 @@ var dbCloudant = require('../server/services/cloudant.service');
 var db = dbCloudant.getDB();
 
 module.exports = function (passport) {
+
+    passport.checkEmail = function (email) {
+        db.find({selector: {username: email}}, function (err, result) {
+            if (err) return (err);
+
+            if (result.docs.length === 0) {
+                console.log('no matching email found!');
+                return ({loginError :'facebook login failed'});
+                //return done(null, false, {loginError: 'Facebook login failed.'});
+            }
+            else {
+                console.log('email found!');
+                return result.docs[0];
+                //return done(null, result.docs[0]);
+            }
+        });
+    }
+
+
     passport.serializeUser(function (user, cb) {
+        console.log("serializing");
         cb(null, user);
     });
 
-    passport.deserializeUser(function (obj, cb) {
-        cb(null, obj);
+    passport.deserializeUser(function (user, cb) {
+        console.log("deserializing");
+        cb(null, user);
     });
 
     // FACEBOOK LOGIN
@@ -25,13 +46,15 @@ module.exports = function (passport) {
         enableProof: true,
         profileFields: ['id', 'emails', 'name'] 
     }, function (accessToken, refreshToken, profile, cb) {
-        console.log('Access token: ' + accessToken + 'Profile: ' + JSON.stringify(profile));
-        var user = {
-            'email': profile.emails[0].value,
-            'name' : profile.name.givenName + ' ' + profile.name.familyName,
-            'id'   : profile.id,
-            'token': accessToken
-        }
+        //if(passport.checkEmail(profile.emails[0].value)) {
+            console.log('Access token: ' + accessToken + 'Profile: ' + JSON.stringify(profile));
+            var user = {
+                'email': profile.emails[0].value,
+                'name' : profile.name.givenName + ' ' + profile.name.familyName,
+                'id'   : profile.id,
+                'token': accessToken
+            }
+       // }
         
         return cb(null, user);
     }));
@@ -68,7 +91,7 @@ module.exports = function (passport) {
                                 return done(null, err);
                             } else {
                                 return done(null, result, req.flash('signupMessage', 'User ' + email + ' has been added to the DB.'));
-                                //return done(null, false, req.flash('signupMessage', 'User ' + email + ' has been added to the DB.'));
+                                  //return done(null, false, req.flash('signupMessage', 'User ' + email + ' has been added to the DB.'));
                             }
              
                         });
@@ -106,7 +129,8 @@ module.exports = function (passport) {
                 var passwordState = loginService.validatePassword(password, hash);
                 if (passwordState == true) {
                     console.log('Authenticated user');
-                    return done(null, result);
+                    return done(null, result.docs[0]);
+                    //return done(null, result);
                 } else {
                     console.log('Incorrect password entered');
                     //return done(null, false, req.flash('loginError', 'Incorrect password entered.'));
@@ -118,4 +142,3 @@ module.exports = function (passport) {
 
     }));
 };
-

@@ -27,7 +27,32 @@
 			</div>
 		</div>
 
-		<div>{{vm.role}}</div>
+		<!--div>{{vm.role}}</div-->
+
+
+		<!-- ADD A TABLE TO DISPLAY SEARCH RESULTS -->
+		<div class="form-group mt-5 mx-auto" ng-show="vm.searchResults">            
+            <table class="table table-hover" border="0" width="80%" cellpadding="1" cellspacing="1">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>ID</th>
+                        <th>Developer Name</th>
+                        <th>Project Name</th>
+                        <th colspan="2">Developer Project Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="res in vm.searchResults track by $index">
+                        <td>{{ res._id }}</td>
+                        <td>{{ res.developer_name }}</td>
+                        <td>{{ res.developer_project_project_name }}</td>
+                        <td>{{ res.developer_project_email }}</td>
+                        <td><button class="btn btn-secondary" ng-click="vm.editDev(res._id)"> Update</button></td>
+                    </tr>   
+                </tbody>         
+            </table>        
+        </div>
+
 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.js"></script>
 
