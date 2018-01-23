@@ -48,28 +48,26 @@ module.exports = function (app) {
                 
             } else {
                 
-                var length = doc.docs.length;
-				console.log('length: ' + doc.docs.length);
-                if (doc.docs.length === 0) {
-					db.find({selector: {
-							"_id": {
-								"$gt": "0"
-							}						
-						}	
-					}, function (err1, doc1) {
-						if (err1) {
-							res.json({err:err1});
-                
-						} else {
-							console.log(JSON.stringify(doc1.docs));
-							res.status(200).json(doc1.docs);  
+                if (value === '' || typeof value === 'undefined') {
+			db.find({selector: {
+				"_id": {
+					"$gt": "0"
+				}						
+			}	
+			}, function (err1, doc1) {
+				if (err1) {
+					res.json({err:err1});
+
+				} else {
+					console.log(JSON.stringify(doc1.docs));
+					res.status(200).json(doc1.docs);  
                         }
                     }); 		
 					
-				} else {
-					console.log(JSON.stringify(doc.docs));
-					res.status(200).json(doc.docs);   
-				}				
+		} else {
+			console.log(JSON.stringify(doc.docs));
+			res.status(200).json(doc.docs);   
+		}				
                              
             }
 
@@ -81,7 +79,7 @@ module.exports = function (app) {
     app.get('/search-developer', function(req, res) {
         var name = req.query.name;
 
-        db.find({selector: { developer_name: {$regex: "^(?i)" + name } }}, function (err, doc) {
+        db.find({selector: { developer_name: {$regex: "^(?i)" + name +"$" } }}, function (err, doc) {
             if (err) {
                 res.json({err:err});
                 
