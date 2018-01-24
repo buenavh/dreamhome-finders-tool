@@ -3,51 +3,69 @@ var dbCloudant = require('../services/cloudant.service');
 var db = dbCloudant.getDevInfo();
 
 module.exports = function (app) {
-    // API to search input text from all fields (Case-insensitive)
+    // API to search input text from all fields (case-insensitive)
     app.get('/search-all', function(req, res) { 
         var value = req.query.name;
                
         db.find({selector: {
-            "$or": [
-                { developer_name: {$regex: "^(?i)" + value } },
-                { developer_address: {$regex: "^(?i)" + value } },
-                { developer_contact_person: value },
-                { developer_project_project_name: {$regex: "^(?i)" + value } },
-                { developer_project_address: {$regex: "^(?i)" + value } },
-                { developer_project_contact_person: value },
-                { developer_project_email: value },
-                { developer_project_contact_phone: value },
-                { developer_project_commission_rate: value },
-                { developer_project_sales_cluster: {$regex: "^(?i)" + value } },
+			"$or": [
+				{ developer_name: {$regex: "^(?i)" + value +"$" } },
+				{ developer_address: {$regex: "^(?i)" + value +"$"} },
+				{ developer_contact_person: value },
+				{ developer_project_project_name: {$regex: "^(?i)" + value +"$" } },
+				{ developer_project_address: {$regex: "^(?i)" + value +"$" } },
+				{ developer_project_contact_person: value },
+				{ developer_project_email: value },
+				{ developer_project_contact_phone: value },
+				{ developer_project_commission_rate: value },
+				{ developer_project_sales_cluster: {$regex: "^(?i)" + value +"$" } },
             ]}
-        }, function (err, doc) {
+		}, function (err, doc) {
             if (err) {
-                res.json({err:err});
-                
+                res.json({err:err});                
             } else {
-                // log for testing
-                // console.log(JSON.stringify(doc.docs));
-                res.status(200).json(doc.docs);                
+                if (value === '' || typeof value === 'undefined') {
+					db.find({selector: {
+							"_id": {
+								"$gt": "0"
+							}						
+						}	
+					}, function (err1, doc1) {
+						if (err1) {
+							res.json({err:err1});
+                
+						} else {
+							//console.log(JSON.stringify(doc1.docs));
+							res.status(200).json(doc1.docs);  
+                        }
+                    }); 		
+					
+				} else {
+					//console.log(JSON.stringify(doc.docs));
+					res.status(200).json(doc.docs);   
+				}				
+                             
             }
 
         }); 
               
     });
 
-    // API for searching only the developer_name field
+    // API to search developer name
     app.get('/search-developer', function(req, res) {
         var name = req.query.name;
-               
-        db.find({selector: {developer_name: name}}, function (err, doc) {
+
+        db.find({selector: { developer_name: {$regex: "^(?i)" + name +"$"  } }}, function (err, doc) {
             if (err) {
                 res.json({err:err});
                 
             } else {
-                // Log for testing
-                //console.log(JSON.stringify(doc.docs));
+                console.log(JSON.stringify(doc.docs));
                 res.status(200).json(doc.docs);                
             }
-        });      
+
+        });
+              
     });
 
     // API to insert new developer
@@ -91,7 +109,7 @@ module.exports = function (app) {
             developer_project_project_name                  : req.body.developer_project_project_name,
             developer_project_address                       : req.body.developer_project_address,
             developer_project_contact_person                : req.body.developer_project_contact_person,
-            developer_project_contact_email                 : req.body.developer_project_contact_email,
+            developer_project_email                         : req.body.developer_project_contact_email,
             developer_project_contact_phone                 : req.body.developer_project_contact_phone,
             developer_project_commission_rate               : req.body.developer_project_commission_rate,
             developer_project_sales_cluster                 : req.body.developer_project_sales_cluster               

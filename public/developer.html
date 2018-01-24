@@ -1,90 +1,134 @@
 <html ng-app="app">
-	<head>
-		<title>DHFI - New Developer</title>
 
-		<!-- BOOTSTRAP 4 CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<head>
+    <title>DHFI - New Developer</title>
 
-		<!-- FONT AWESOME ICONS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	</head>
-	<base href= "/">
-	<body ng-controller="controller as vm">
-		<div class="container mt-5 col-10">
-			<!--div class="form-group row" ng-hide="vm.dev.developer_id === ''">
-				<label class="col-2 col-form-label">Developer Name</label>
-				<div class="col-10">
-					<input class="form-control" type="text" ng-model="vm.dev.developer_id">
-				</div>
-			</div -->
+    <!-- BOOTSTRAP 4 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
-			<div class="form-group row">
-				<label class="col-2 col-form-label">Developer Name</label>
-				<div class="col-10">
-					<input class="form-control" type="text" ng-model="vm.dev.developer_name" value="{{vm.developer_name}}">
-				</div>
-			</div>
+    <!-- FONT AWESOME ICONS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-			<div class="form-group row">
-				<label class="col-2 col-form-label">Developer Address</label>
-				<div class="col-10">
-					<input class="form-control" type="text" ng-model="vm.dev.developer_address">
-				</div>
-			</div>
+    <style>
+        #p01 {
+            color: #FF0000;
+            font-size: 12px;
+        }
 
-			<div class="form-group row">
-				<label class="col-2 col-form-label">Contact Person</label>
-				<div class="col-10">
-					<input class="form-control" type="text" ng-model="vm.dev.contact_person">
-				</div>
-			</div>
+        .required label {
+            font-weight: bold;
+        }
 
-			<div class="form-group row">
-				<label class="col-2 col-form-label">Project Name</label>
-				<div class="col-10">
-					<input class="form-control" type="text" ng-model="vm.dev.project_name">
-				</div>
-			</div>
+        .required label:after {
+            color: #E32;
+            content: ' *';
+            display: inline;
+        }
 
-			<div class="form-group row">
-				<label class="col-2 col-form-label">Project Address</label>
-				<div class="col-10">
-					<input class="form-control" type="text" ng-model="vm.dev.project_address">
-				</div>
-			</div>
+        /*
+			input.ng-invalid {
+  			border: 1px solid red;
+			}
+		*/
 
-			<div class="form-group row">
-				<label class="col-2 col-form-label">Project Contact Person</label>
-				<div class="col-10">
-					<input class="form-control" type="text" ng-model="vm.dev.project_contact_person">
-				</div>
-			</div>
+    </style>
+</head>
+<base href="/">
 
-				<div class="form-group row">
-				<label class="col-2 col-form-label">Project Contact Email</label>
-				<div class="col-10">
-					<input class="form-control" type="email" ng-model="vm.dev.project_contact_email">
-				</div>
-			</div>
+<body ng-controller="controller as vm">
+    <form name="frmDeveloper" novalidate>
+        <div class="container mt-5 col-10">
+            <div class="form-group row required">
+                <label class="col-2 col-form-label">Developer Name</label>
+                <div class="col-10">
+                    <input class="form-control" name="dev_name" type="text" ng-model="vm.dev.developer_name" value="{{vm.developer_name}}" required>
+                </div>
+                <div class="col-10">
+                    <p id="p01" ng-show="frmDeveloper.dev_name.$touched && frmDeveloper.dev_name.$invalid">Developer name is required</p>
+                </div>
+            </div>
 
-			<div class="form-group row">
-				<label class="col-2 col-form-label">Project Contact Phone</label>
-				<div class="col-10">
-					<input class="form-control" type="tel" ng-model="vm.dev.project_contact_phone">
-				</div>
-			</div>
+            <div class="form-group row required">
+                <label class="col-2 col-form-label">Developer Address</label>
+                <div class="col-10">
+                    <input class="form-control" name="dev_address" type="text" ng-model="vm.dev.developer_address" required>
+                </div>
+                <div class="col-10">
+                    <p id="p01" ng-show="frmDeveloper.dev_address.$touched && frmDeveloper.dev_address.$invalid">Developer address is required</p>
+                </div>
+            </div>
 
-			<div class="form-group row">
-				<label class="col-2 col-form-label">Project Commission Rate</label>
-				<div class="col-10">
-					<input class="form-control" type="number" min="1" max="10" value="1"  ng-init ="vm.dev.project_commission_rate = 1" ng-model="vm.dev.project_commission_rate">
-				</div>
-			</div>
+            <div class="form-group row">
+                <label class="col-2 col-form-label">Contact Person</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" ng-model="vm.dev.contact_person">
+                </div>
+            </div>
 
-			<div class="form-group row">
-				<label class="col-2 col-form-label">Sales Cluster</label>
-				<div class="col-10">
-					<select class="form-control" ng-model="vm.dev.sales_cluster">
+            <div class="form-group row required">
+                <label class="col-2 col-form-label">Project Name</label>
+                <div class="col-10">
+                    <input class="form-control" name="proj_name" type="text" ng-model="vm.dev.project_name" required>
+                </div>
+                <div class="col-10">
+                    <p id="p01" ng-show="frmDeveloper.proj_name.$touched && frmDeveloper.proj_name.$invalid">Project name is required</p>
+                </div>
+            </div>
+
+            <div class="form-group row required">
+                <label class="col-2 col-form-label">Project Address</label>
+                <div class="col-10">
+                    <input class="form-control" name="proj_address" type="text" ng-model="vm.dev.project_address" required>
+                </div>
+                <div class="col-10">
+                    <p id="p01" ng-show="frmDeveloper.proj_address.$touched && frmDeveloper.proj_address.$invalid">Project address is required</p>
+                </div>
+            </div>
+
+            <div class="form-group row required">
+                <label class="col-2 col-form-label">Project Contact Person</label>
+                <div class="col-10">
+                    <input class="form-control" name="proj_contact_person" type="text" ng-model="vm.dev.project_contact_person" required>
+                </div>
+                <div class="col-10">
+                    <p id="p01" ng-show="frmDeveloper.proj_contact_person.$touched && frmDeveloper.proj_contact_person.$invalid">Project contact person is required</p>
+                </div>
+            </div>
+
+            <div class="form-group row required">
+                <label class="col-2 col-form-label">Project Contact Email</label>
+                <div class="col-10">
+                    <input class="form-control" name="proj_email" type="email" ng-model="vm.dev.project_contact_email" required>
+                </div>
+                <div class="col-10">
+                    <p id="p01" ng-show="frmDeveloper.proj_email.$touched && frmDeveloper.proj_email.$invalid">A valid project email address is required</p>
+                </div>
+            </div>
+
+            <div class="form-group row required">
+                <label class="col-2 col-form-label">Project Contact Phone</label>
+                <div class="col-10">
+                    <input class="form-control" name="proj_phone" type="tel" ng-model="vm.dev.project_contact_phone" required>
+                </div>
+                <div class="col-10">
+                    <p id="p01" ng-show="frmDeveloper.proj_phone.$touched && frmDeveloper.proj_phone.$invalid">Project contact phone number is required</p>
+                </div>
+            </div>
+
+            <div class="form-group row required">
+                <label class="col-2 col-form-label">Project Commission Rate</label>
+                <div class="col-10">
+                    <input class="form-control" name="com_rate" type="number" min="1" max="10" value="1" ng-init="vm.dev.project_commission_rate = 1" ng-model="vm.dev.project_commission_rate" required>
+                </div>
+                <div class="col-10">
+                    <p id="p01" ng-show="frmDeveloper.com_rate.$touched && frmDeveloper.com_rate.$invalid">Commission rate is required</p>
+                </div>
+            </div>
+
+            <div class="form-group row required">
+                <label class="col-2 col-form-label">Sales Cluster</label>
+                <div class="col-10">
+                    <select class="form-control" name="cluster" ng-model="vm.dev.sales_cluster" required>
 						<option disabled selected value="">--- SELECT CLUSTER ---</option>
 						<option value="North Cluster">North Cluster</option>
 						<option value="South Cluster">South Cluster</option>
@@ -93,25 +137,30 @@
 						<option value="Central Cluster">Central Cluster</option>
 						<option value="Others">Others</option>
 					</select>
-				</div>	
-			</div>
+                </div>
+                <div class="col-10">
+                    <p id="p01" ng-show="frmDeveloper.cluster.$touched && frmDeveloper.cluster.$invalid">Sales cluster is required</p>
+                </div>
+            </div>
 
-			<div class="form-group row">
-				<div class="col-8 mx-auto">
-					<button class="btn btn-primary col-3" ng-click="vm.addDev(vm.dev)">Save & Close</button>
-					<!-- <button class="btn btn-primary col-3" ng-click="vm.editDev(vm.dev)">Update & Close</button> -->
-					<button class="btn btn-danger col-3" ng-click="vm.cancel()">Cancel</button>
-				</div>
-			</div>
-		</div>
+            <div class="form-group row">
+                <div class="col-8 mx-auto">
+                    <button class="btn btn-primary col-3" ng-click="vm.addDev(vm.dev)" ng-disabled="frmDeveloper.$invalid">Save & Close</button>
+                    <!-- <button class="btn btn-primary col-3" ng-click="vm.editDev(vm.dev)">Update & Close</button> -->
+                    <button class="btn btn-danger col-3" ng-click="vm.cancel()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.js"></script>
 
-		<script src="../controller/controller.js"></script>
+    <script src="../controller/controller.js"></script>
 
-		<!-- BOOTSRAP 4 REQUIRED FILES -->
-		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-	</body>
+    <!-- BOOTSRAP 4 REQUIRED FILES -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</body>
+
 </html>

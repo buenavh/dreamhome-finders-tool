@@ -69,7 +69,7 @@
 							vm.project_name 				= item.developer_project_project_name;
 							vm.project_address 				= item.developer_project_address;
 							vm.project_contact_person 		= item.developer_project_contact_person;
-							vm.project_contact_email 		= item.developer_project_contact_email;
+							vm.project_contact_email 		= item.developer_project_email;
 							vm.project_contact_phone 		= item.developer_project_contact_phone;
 							vm.project_commission_rate 		= item.developer_project_commission_rate;
 							vm.project_sales_cluster 		= item.developer_project_sales_cluster;

@@ -1,66 +1,69 @@
 <html ng-app="app">
-	<head>
-		<title>DHFI - Home</title>
 
-		<!-- BOOTSTRAP 4 CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<head>
+    <title>DHFI - Home</title>
 
-		<!-- FONT AWESOME ICONS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	</head>
-	<base href="/">
-	<body ng-controller="controller as vm">
-		<div class="container mt-5">
-			<div class="input-group mx-auto col-8">
-				<input type="text" class="form-control" placeholder="Search" aria-describedby="btnGroupAddon" ng-model="vm.searchText">
-				<button class="input-group-addon" ng-click="vm.search(vm.searchText)">
+    <!-- BOOTSTRAP 4 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <!-- FONT AWESOME ICONS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<base href="/">
+
+<body ng-controller="controller as vm">
+    <div class="container mt-5">
+        <div class="input-group mx-auto col-8">
+            <input type="text" class="form-control" placeholder="Search" aria-describedby="btnGroupAddon" ng-model="vm.searchText">
+            <button class="input-group-addon" ng-click="vm.search(vm.searchText)">
 					<i class="fa fa-search" aria-hidden="true"></i>
 				</button>
-			</div>
-		</div>
-
-		<div class="container mt-5 mx-auto col-4">
-			<div class="btn-group-md" role="group" aria-label="First group">
-				<a class="btn btn-primary" href="/developer/add">Add Developer Info</a>
-				<!--a class="btn btn-primary" href="/developer">Edit Developer Info</a-->
-				<a class="btn btn-primary" href="/register">Add User</a>
-			</div>
-		</div>
-
-		<!--div>{{vm.role}}</div-->
-
-
-		<!-- ADD A TABLE TO DISPLAY SEARCH RESULTS -->
-		<div class="form-group mt-5 mx-auto" ng-show="vm.searchResults">            
-            <table class="table table-hover" border="0" width="80%" cellpadding="1" cellspacing="1">
-                <thead class="thead-inverse">
-                    <tr>
-                        <th>ID</th>
-                        <th>Developer Name</th>
-                        <th>Project Name</th>
-                        <th colspan="2">Developer Project Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="res in vm.searchResults track by $index">
-                        <td>{{ res._id }}</td>
-                        <td>{{ res.developer_name }}</td>
-                        <td>{{ res.developer_project_project_name }}</td>
-                        <td>{{ res.developer_project_email }}</td>
-                        <td><button class="btn btn-secondary" ng-click="vm.editDev(res._id)"> Update</button></td>
-                    </tr>   
-                </tbody>         
-            </table>        
         </div>
+    </div>
+
+    <div class="container mt-5 mx-auto col-4">
+        <div class="btn-group-md" role="group" aria-label="First group">
+            <a class="btn btn-primary" href="/developer/add">Add Developer Info</a>
+            <!--a class="btn btn-primary" href="/developer">Edit Developer Info</a-->
+            <a class="btn btn-primary" href="/register">Add User</a>
+        </div>
+    </div>
+
+    <!--div>{{vm.role}}</div-->
 
 
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.js"></script>
+    <!-- ADD A TABLE TO DISPLAY SEARCH RESULTS -->
+    <div class="form-group mt-5 mx-auto" ng-show="vm.searchResults">
+        <table class="table table-hover" border="0" width="80%" cellpadding="1" cellspacing="1">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>ID</th>
+                    <th>Developer Name</th>
+                    <th>Project Name</th>
+                    <th colspan="2">Developer Project Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="res in vm.searchResults track by $index">
+                    <td>{{ res._id }}</td>
+                    <td>{{ res.developer_name }}</td>
+                    <td>{{ res.developer_project_project_name }}</td>
+                    <td>{{ res.developer_project_email }}</td>
+                    <td><button class="btn btn-secondary" ng-click="vm.editDev(res._id)"> Update</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-		<script src="../controller/controller.js"></script>
 
-		<!-- BOOTSRAP 4 REQUIRED FILES -->
-		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-	</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.js"></script>
+
+    <script src="../controller/controller.js"></script>
+
+    <!-- BOOTSRAP 4 REQUIRED FILES -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</body>
+
 </html>
