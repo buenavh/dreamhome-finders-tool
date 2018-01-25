@@ -59,7 +59,7 @@
 						params: {id: vm.idParam}
 					}).then(function successCallback(response) {
 						vm.infoResults = response.data;
-						console.log('results: ' + JSON.stringify(vm.infoResults));
+						//console.log('results: ' + JSON.stringify(vm.infoResults));
 						angular.forEach(response.data, function (item) {
 							vm._id 							= item._id;
 							vm._rev 						= item._rev;
@@ -69,7 +69,7 @@
 							vm.project_name 				= item.developer_project_project_name;
 							vm.project_address 				= item.developer_project_address;
 							vm.project_contact_person 		= item.developer_project_contact_person;
-							vm.project_contact_email 		= item.developer_project_email;
+							vm.project_contact_email 		= item.developer_project_contact_email;
 							vm.project_contact_phone 		= item.developer_project_contact_phone;
 							vm.project_commission_rate 		= item.developer_project_commission_rate;
 							vm.project_sales_cluster 		= item.developer_project_sales_cluster;
@@ -82,7 +82,7 @@
 			}
 		};
 
-		//include routeProvider & locationProvider to detect your URL changes
+		//include locationProvider to prettify urls
 		config.$inject = ['$locationProvider'];
 		function config($locationProvider) {
 

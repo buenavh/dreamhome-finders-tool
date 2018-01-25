@@ -1,165 +1,160 @@
 <html ng-app="app">
 
-<head>
-    <title>DHFI - Edit Developer</title>
+    <head>
+        <title>DHFI - Edit Developer</title>
 
-    <!-- BOOTSTRAP 4 CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <!-- BOOTSTRAP 4 CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
-    <!-- FONT AWESOME ICONS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- FONT AWESOME ICONS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <style>
-        #p01 {
-            color: #FF0000;
-            font-size: 12px;
-        }
+        <style>
+            #p01 {
+                color: #FF0000;
+                font-size: 12px;
+            }
 
-        .required label {
-            font-weight: bold;
-        }
+            .required label {
+                font-weight: bold;
+            }
 
-        .required label:after {
-            color: #E32;
-            content: ' *';
-            display: inline;
-        }
+            .required label:after {
+                color: #E32;
+                content: ' *';
+                display: inline;
+            }
+        </style>
+    </head>
+    <base href="/">
 
-        /*
-			input.ng-invalid {
-  			border: 1px solid red;
-			}
-		*/
-
-    </style>
-</head>
-<base href="/">
-
-<body ng-controller="DeveloperCtrl as vm">
-    <form name="frmUpdate" novalidate>
-        <div class="container mt-5 col-10">
-            <div class="form-group row required">
-                <label class="col-2 col-form-label">Developer Name</label>
-                <div class="col-10">
-                    <input class="form-control" name="dev_name" type="text" ng-model="vm.developer_name" value="{{vm.developer_name}}" required>
+    <body ng-controller="DeveloperCtrl as vm">
+        <form name="frmUpdate" novalidate>
+            <div class="container mt-5 col-10">
+                <div class="form-group row required">
+                    <label class="col-3 col-form-label">Developer Name</label>
+                    <div class="col-9">
+                        <input class="form-control" name="dev_name" type="text" ng-model="vm.developer_name" value="{{vm.developer_name}}" required>
+                    </div>
+                    <div class="col-9">
+                        <p id="p01" ng-show="frmUpdate.dev_name.$touched && frmUpdate.dev_name.$invalid">Developer name is required</p>
+                    </div>
                 </div>
-                <div class="col-10">
-                    <p id="p01" ng-show="frmUpdate.dev_name.$touched && frmUpdate.dev_name.$invalid">Developer name is required</p>
-                </div>
-            </div>
 
-            <div class="form-group row required">
-                <label class="col-2 col-form-label">Developer Address</label>
-                <div class="col-10">
-                    <input class="form-control" name="dev_address" type="text" ng-model="vm.developer_address" value="{{vm.developer_address}}" required>
+                <div class="form-group row required">
+                    <label class="col-3 col-form-label">Developer Address</label>
+                    <div class="col-9">
+                        <input class="form-control" name="dev_address" type="text" ng-model="vm.developer_address" value="{{vm.developer_address}}" required>
+                    </div>
+                    <div class="col-9">
+                        <p id="p01" ng-show="frmUpdate.dev_address.$touched && frmUpdate.dev_address.$invalid">Developer address is required</p>
+                    </div>
                 </div>
-                <div class="col-10">
-                    <p id="p01" ng-show="frmUpdate.dev_address.$touched && frmUpdate.dev_address.$invalid">Developer address is required</p>
-                </div>
-            </div>
 
-            <div class="form-group row">
-                <label class="col-2 col-form-label">Contact Person</label>
-                <div class="col-10">
-                    <input class="form-control" type="text" ng-model="vm.developer_contact_person">
+                <div class="form-group row required">
+                    <label class="col-3 col-form-label">Contact Person</label>
+                    <div class="col-9">
+                        <input class="form-control" name='contact_person' type="text" ng-model="vm.developer_contact_person" value="{{vm.developer_contact_person}}" required>
+                    </div>
+                    <div class="col-9">
+                        <p id="p01" ng-show="frmUpdate.contact_person.$touched && frmUpdate.contact_person.$invalid">Contact person is required</p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row required">
-                <label class="col-2 col-form-label">Project Name</label>
-                <div class="col-10">
-                    <input class="form-control" name="proj_name" type="text" ng-model="vm.project_name" value="{{vm.project_name}}" required>
+                <div class="form-group row required">
+                    <label class="col-3 col-form-label">Project Name</label>
+                    <div class="col-9">
+                        <input class="form-control" name="proj_name" type="text" ng-model="vm.project_name" value="{{vm.project_name}}" required>
+                    </div>
+                    <div class="col-9">
+                        <p id="p01" ng-show="frmUpdate.proj_name.$touched && frmUpdate.proj_name.$invalid">Project name is required</p>
+                    </div>
                 </div>
-                <div class="col-10">
-                    <p id="p01" ng-show="frmUpdate.proj_name.$touched && frmUpdate.proj_name.$invalid">Project name is required</p>
-                </div>
-            </div>
 
-            <div class="form-group row required">
-                <label class="col-2 col-form-label">Project Address</label>
-                <div class="col-10">
-                    <input class="form-control" name="proj_address" type="text" ng-model="vm.project_address" value="{{vm.project_address}}" required>
+                <div class="form-group row required">
+                    <label class="col-3 col-form-label">Project Address</label>
+                    <div class="col-9">
+                        <input class="form-control" name="proj_address" type="text" ng-model="vm.project_address" value="{{vm.project_address}}" required>
+                    </div>
+                    <div class="col-9">
+                        <p id="p01" ng-show="frmUpdate.proj_address.$touched && frmUpdate.proj_address.$invalid">Project address is required</p>
+                    </div>
                 </div>
-                <div class="col-10">
-                    <p id="p01" ng-show="frmUpdate.proj_address.$touched && frmUpdate.proj_address.$invalid">Project address is required</p>
-                </div>
-            </div>
 
-            <div class="form-group row required">
-                <label class="col-2 col-form-label">Project Contact Person</label>
-                <div class="col-10">
-                    <input class="form-control" name="proj_contact_person" type="text" ng-model="vm.project_contact_person" value="{{vm.project_contact_person}}" required>
+                <div class="form-group row required">
+                    <label class="col-3 col-form-label">Project Contact Person</label>
+                    <div class="col-9">
+                        <input class="form-control" name="proj_contact_person" type="text" ng-model="vm.project_contact_person" value="{{vm.project_contact_person}}" required>
+                    </div>
+                    <div class="col-9">
+                        <p id="p01" ng-show="frmUpdate.proj_contact_person.$touched && frmUpdate.proj_contact_person.$invalid">Project contact person is required</p>
+                    </div>
                 </div>
-                <div class="col-10">
-                    <p id="p01" ng-show="frmUpdate.proj_contact_person.$touched && frmUpdate.proj_contact_person.$invalid">Project contact person is required</p>
-                </div>
-            </div>
 
-            <div class="form-group row required">
-                <label class="col-2 col-form-label">Project Contact Email</label>
-                <div class="col-10">
-                    <input class="form-control" name="proj_email" type="email" ng-model="vm.project_contact_email" value="{{vm.project_contact_email}}" required>
+                <div class="form-group row required">
+                    <label class="col-3 col-form-label">Project Contact Email</label>
+                    <div class="col-9">
+                        <input class="form-control" name="proj_email" type="email" ng-model="vm.project_contact_email" value="{{vm.project_contact_email}}" required>
+                    </div>
+                    <div class="col-9">
+                        <p id="p01" ng-show="frmUpdate.proj_email.$touched && frmUpdate.proj_email.$invalid">A valid project email address is required</p>
+                    </div>
                 </div>
-                <div class="col-10">
-                    <p id="p01" ng-show="frmUpdate.proj_email.$touched && frmUpdate.proj_email.$invalid">A valid project email address is required</p>
-                </div>
-            </div>
 
-            <div class="form-group row required">
-                <label class="col-2 col-form-label">Project Contact Phone</label>
-                <div class="col-10">
-                    <input class="form-control" name="proj_phone" type="tel" ng-model="vm.project_contact_phone" value="{{vm.project_contact_phone}}" required>
+                <div class="form-group row required">
+                    <label class="col-3 col-form-label">Project Contact Phone</label>
+                    <div class="col-9">
+                        <input class="form-control" name="proj_phone" type="tel" ng-model="vm.project_contact_phone" value="{{vm.project_contact_phone}}" required>
+                    </div>
+                    <div class="col-9">
+                        <p id="p01" ng-show="frmUpdate.proj_phone.$touched && frmUpdate.proj_phone.$invalid">Project contact phone number is required</p>
+                    </div>
                 </div>
-                <div class="col-10">
-                    <p id="p01" ng-show="frmUpdate.proj_phone.$touched && frmUpdate.proj_phone.$invalid">Project contact phone number is required</p>
-                </div>
-            </div>
 
-            <div class="form-group row required">
-                <label class="col-2 col-form-label">Project Commission Rate</label>
-                <div class="col-10">
-                    <input class="form-control" name="com_rate" type="number" min="1" max="10" value="1" ng-init="vm.project_commission_rate = 1" ng-model="vm.project_commission_rate" value="{{vm.project_commission_rate}}" required>
+                <div class="form-group row required">
+                    <label class="col-3 col-form-label">Project Commission Rate</label>
+                    <div class="col-9">
+                        <input class="form-control" name="com_rate" type="number" min="1" max="10" value="1" ng-init="vm.project_commission_rate = 1" ng-model="vm.project_commission_rate" value="{{vm.project_commission_rate}}" required>
+                    </div>
+                    <div class="col-9">
+                        <p id="p01" ng-show="frmUpdate.com_rate.$touched && frmUpdate.com_rate.$invalid">Commission rate is required</p>
+                    </div>
                 </div>
-                <div class="col-10">
-                    <p id="p01" ng-show="frmUpdate.com_rate.$touched && frmUpdate.com_rate.$invalid">Commission rate is required</p>
+
+                <div class="form-group row required">
+                    <label class="col-3 col-form-label">Sales Cluster</label>
+                    <div class="col-9">
+                        <select class="form-control" name="cluster" ng-options="cluster for cluster in sales_clusters" ng-model="vm.project_sales_cluster" value="{{vm.project_sales_cluster}}" required>						
+    					</select>
+                    </div>
+                    <div class="col-9">
+                        <p id="p01" ng-show="frmUpdate.cluster.$touched && frmUpdate.cluster.$invalid">Sales cluster is required</p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row required">
-                <label class="col-2 col-form-label">Sales Cluster</label>
-                <div class="col-10">
-                    <select class="form-control" name="cluster" ng-options="cluster for cluster in sales_clusters" ng-model="vm.project_sales_cluster" value="{{vm.project_sales_cluster}}" required>						
-					</select>
+                <div class="form-group row" ng-hide="true">
+                    <input class="form-control" type="text" ng-model="vm._id" value="{{vm._id}}">
+                    <input class="form-control" type="text" ng-model="vm._rev" value="{{vm._rev}}">
                 </div>
-                <div class="col-10">
-                    <p id="p01" ng-show="frmUpdate.cluster.$touched && frmUpdate.cluster.$invalid">Sales cluster is required</p>
-                </div>
-            </div>
-
-            <div class="form-group row" ng-hide="true">
-                <input class="form-control" type="text" ng-model="vm._id" value="{{vm._id}}">
-                <input class="form-control" type="text" ng-model="vm._rev" value="{{vm._rev}}">
-            </div>
 
 
-            <div class="form-group row">
-                <div class="col-8 mx-auto">
-                    <button class="btn btn-primary col-3" ng-click="vm.updateDev(vm, vm._id, vm._rev)" ng-disabled="frmUpdate.$invalid">Update & Close</button>
-                    <button class="btn btn-danger col-3" ng-click="vm.cancel()">Cancel</button>
+                <div class="form-group row">
+                    <div class="col-8 mx-auto">
+                        <button class="btn btn-primary col-3" ng-click="vm.updateDev(vm, vm._id, vm._rev)" ng-disabled="frmUpdate.$invalid">Update & Close</button>
+                        <button class="btn btn-danger col-3" ng-click="vm.cancel()">Cancel</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.js"></script>
 
-    <!-- <script src="../controller/controller.js"></script> -->
-    <script src="../controller/developer.controller.js"></script>
+        <script src="../controller/developer.controller.js"></script>
 
-    <!-- BOOTSRAP 4 REQUIRED FILES -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-</body>
+        <!-- BOOTSRAP 4 REQUIRED FILES -->
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    </body>
 
 </html>

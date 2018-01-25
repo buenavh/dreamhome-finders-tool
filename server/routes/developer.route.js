@@ -109,7 +109,7 @@ module.exports = function (app) {
             developer_project_project_name                  : req.body.developer_project_project_name,
             developer_project_address                       : req.body.developer_project_address,
             developer_project_contact_person                : req.body.developer_project_contact_person,
-            developer_project_email                         : req.body.developer_project_contact_email,
+            developer_project_contact_email                 : req.body.developer_project_contact_email,
             developer_project_contact_phone                 : req.body.developer_project_contact_phone,
             developer_project_commission_rate               : req.body.developer_project_commission_rate,
             developer_project_sales_cluster                 : req.body.developer_project_sales_cluster               

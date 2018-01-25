@@ -11,6 +11,20 @@
 		function controller($http, $window) {
 			var vm = this;
 
+			vm.redirectTo = function(url, allow) {
+				$http.get('/user-access').then(function (res) {
+					console.log(res.data.user);
+					if(allow.indexOf(res.data.user.usergroup) > -1) {
+						$window.location.href = url;
+					}
+					else {
+						alert('Sorry! You are not allowed to access that page');	
+					}
+				}, function (err) {
+					alert(err);
+				});
+			}
+
 			vm.cancel = function() {
 				$window.location.href = "/home";
 			}
@@ -20,10 +34,8 @@
 				$http.post('/login', user)
 
 				.then(function(response) {
-					// vm.loginError = response.loginError;
 					//need to save data after login so we know user's role
 					if (response.data.success) {
-						// test res redirect as well
 						$window.location.href = "/home";
 					}
 
@@ -32,7 +44,7 @@
 					}
 
 				}, function() {
-					vm.loginError = 'Authentication failed';
+					alert('Authentication failed');
 				})
 			}
 
@@ -51,7 +63,7 @@
 					}
 
 				}, function () {
-						vm.registerError = 'Authentication failed';
+						alert('Registration failed');
 				})
 			}
 
@@ -65,36 +77,31 @@
 
 	            .then(function successCallback(response) {
 	                vm.searchResults = response.data;
-	                return ({status: "success"});
+	                //return ({status: "success"});
 	                
 	            }, function errorCallback(error) {
-	                vm.error = error;
-	                console.log(error);
+	                alert(error);
 	            });
 	        }
 
 			//functions for developer
 			vm.addDev = function(dev) {
-				console.log(dev);
-
 				$http.post('/submit-developer', dev)
 
 				.then(function (res) {
-					console.log(res);
 					alert('Developer information insert completed.');
 					$window.location.href= '/home';
 				}, function (err) {
-					console.log(err);
 					alert('Developer information insert error.');
 				});
 			}
 
 			vm.editDev = function(id) {
-				$window.location.href = "/developer/update" +"?id=" + id;
+				vm.redirectTo("/developer/update" +"?id=" + id, ['1', '2']);
 			}
 		};
 
-		//use locationProvider to prettfy urls
+		//use locationProvider to prettify urls
 		config.$inject = ['$locationProvider'];
 		function config($locationProvider) {
 

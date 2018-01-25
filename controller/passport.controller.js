@@ -10,24 +10,6 @@ var db = dbCloudant.getDB();
 
 module.exports = function (passport) {
 
-    passport.checkEmail = function (email) {
-        db.find({selector: {username: email}}, function (err, result) {
-            if (err) return (err);
-
-            if (result.docs.length === 0) {
-                console.log('no matching email found!');
-                return ({loginError :'facebook login failed'});
-                //return done(null, false, {loginError: 'Facebook login failed.'});
-            }
-            else {
-                console.log('email found!');
-                return result.docs[0];
-                //return done(null, result.docs[0]);
-            }
-        });
-    }
-
-
     passport.serializeUser(function (user, cb) {
         console.log("serializing");
         cb(null, user);
@@ -46,15 +28,13 @@ module.exports = function (passport) {
         enableProof: true,
         profileFields: ['id', 'emails', 'name'] 
     }, function (accessToken, refreshToken, profile, cb) {
-        //if(passport.checkEmail(profile.emails[0].value)) {
-            console.log('Access token: ' + accessToken + 'Profile: ' + JSON.stringify(profile));
-            var user = {
-                'email': profile.emails[0].value,
-                'name' : profile.name.givenName + ' ' + profile.name.familyName,
-                'id'   : profile.id,
-                'token': accessToken
-            }
-       // }
+        console.log('Access token: ' + accessToken + 'Profile: ' + JSON.stringify(profile));
+        var user = {
+            'email': profile.emails[0].value,
+            'name' : profile.name.givenName + ' ' + profile.name.familyName,
+            'id'   : profile.id,
+            'token': accessToken
+        }
         
         return cb(null, user);
     }));

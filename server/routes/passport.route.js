@@ -2,6 +2,8 @@
 'use strict';
 
 var path = require("path");
+var dbCloudant = require('../services/cloudant.service');
+var db = dbCloudant.getDevInfo();
 
 // server/routes/login.route.js
 module.exports = function (app, passport) {
@@ -12,12 +14,16 @@ module.exports = function (app, passport) {
         next();
     });
 
+    app.get('/user-access', function (req, res) {
+        return res.status(200).json(req.session.passport);
+    });
+
     app.get('/', function (req, res) {
        
        // check if there is any user currently logged in. If yes then redirect to home
         //else, show login page (No restriction required)
 
-       if(typeof(req.session.passport) === 'undefined') {
+       if(typeof(req.session.passport) === 'undefined' || !(req.session.passport.hasOwnProperty('user'))) {
             res.redirect("/login");    
         }
         else {
@@ -31,7 +37,7 @@ module.exports = function (app, passport) {
         // check if there is any user currently logged in. If yes then redirect to home
         //else, show login page (No restriction required)
 
-        if(typeof(req.session.passport) === 'undefined') {
+        if(typeof(req.session.passport) === 'undefined' || !(req.session.passport.hasOwnProperty('user'))) {
             res.sendFile("index.html", {root:path.join(__dirname, "../../public")});    
         }
         else {
@@ -46,7 +52,7 @@ module.exports = function (app, passport) {
         //else if logged in check ugroup allows
         //else, prompt with not allowed?
 
-        if(typeof(req.session.passport) === 'undefined') {
+        if(typeof(req.session.passport) === 'undefined' || !(req.session.passport.hasOwnProperty('user'))) {
             res.redirect("/login");
         }
         else if (req.session.passport.user.usergroup === '1') {
@@ -61,7 +67,7 @@ module.exports = function (app, passport) {
 
     app.get('/home', function (req, res) {
         //if not logged in, redirect to login
-        if(typeof(req.session.passport) === 'undefined') {
+        if(typeof(req.session.passport) === 'undefined' || !(req.session.passport.hasOwnProperty('user'))) {
             res.redirect("/login");
         }
         else {
@@ -77,7 +83,7 @@ module.exports = function (app, passport) {
         //else, prompt with not allowed?
 
 
-        if(typeof(req.session.passport) === 'undefined') {
+        if(typeof(req.session.passport) === 'undefined' || !(req.session.passport.hasOwnProperty('user'))) {
             res.redirect("/login");
         }
 
@@ -98,7 +104,7 @@ module.exports = function (app, passport) {
         //else if logged in check ugroup allows
         //else, prompt with not allowed?
 
-        if(typeof(req.session.passport) === 'undefined') {
+        if(typeof(req.session.passport) === 'undefined' || !(req.session.passport.hasOwnProperty('user'))) {
             res.redirect("/login");
         }
 
@@ -132,20 +138,29 @@ module.exports = function (app, passport) {
                 return res.redirect("/login");
             }
 
-            //construct user obj to use with passport's login feature. Might need to query db for ugroup and 
-            var fbUser = {
-                username        : user.email,
-                usergroup       : '3',
-                accountStatus   : 'active',
-                token           : user.token
-            }
+            db.find({selector: {username: user.email}}, function (error, result) {
+                if (error) return next(error);
 
-            // call req.login() explicitly to latch user credentials to passport's session.
-            req.logIn(fbUser, function(err) {
-                if (err) { return next(err); }
-                return res.redirect("/home");
-            })
-            
+                if(result.docs.length === 0) {
+                    console.log("email not registered with this database");
+                    return res.redirect("/login");
+                }
+                else {
+                    //construct user obj to use with passport's login feature. Might need to query db for ugroup and 
+                    var fbUser = {
+                        username        : result.docs[0].username,
+                        usergroup       : result.docs[0].usergroup,
+                        accountStatus   : result.docs[0].accountStatus,
+                        token           : user.token
+                    }
+
+                    // call req.login() explicitly to latch user credentials to passport's session.
+                    req.logIn(fbUser, function(err) {
+                        if (err) return next(err);
+                        return res.redirect("/home");
+                    });
+                }
+            });
         })(req, res, next);
      });
     
