@@ -1,6 +1,6 @@
 'use strict';
 
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 module.exports = {

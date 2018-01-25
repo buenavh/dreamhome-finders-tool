@@ -80,7 +80,7 @@ module.exports = function (app) {
             developer_project_project_name                  : req.body.project_name,
             developer_project_address                       : req.body.project_address,
             developer_project_contact_person                : req.body.project_contact_person,
-            developer_project_email                         : req.body.project_contact_email,
+            developer_project_contact_email                 : req.body.project_contact_email,
             developer_project_contact_phone                 : req.body.project_contact_phone,
             developer_project_commission_rate               : req.body.project_commission_rate,
             developer_project_sales_cluster                 : req.body.sales_cluster

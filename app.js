@@ -43,8 +43,6 @@ require('./controller/passport.controller')(passport);
 require('./server/routes/passport.route')(app, passport);  
 require('./server/routes/developer.route')(app);
 
-var db = dbCloudant.initDBConnection();
-
 // Add headers
 app.use(function (req, res, next) {
     // Website you wish to allow to connect

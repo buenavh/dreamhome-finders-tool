@@ -3,7 +3,7 @@
 
 var path = require("path");
 var dbCloudant = require('../services/cloudant.service');
-var db = dbCloudant.getDevInfo();
+var db = dbCloudant.getDB();
 
 // server/routes/login.route.js
 module.exports = function (app, passport) {
