@@ -7,8 +7,8 @@
 		.config(config);
 		
 
-		controller.$inject = ["$http", "$window"];
-		function controller($http, $window) {
+		controller.$inject = ["$scope", "$http", "$window"];
+		function controller($scope, $http, $window) {
 			var vm = this;
 
 			vm.redirectTo = function(url, allow) {
@@ -50,21 +50,33 @@
 
 			//functions for register
 			vm.signup = function(newUser) {
-				$http.post("/register", newUser)
+				console.log(newUser);
+				$scope.email_test = '';
+			
+				if (newUser.ugroup === '1' || newUser.ugroup === '2') {
+					var email_regex1 = /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(dhfi)\.com$/g;
+					$scope.email_test= email_regex1.test(newUser.email);
+	
+					if ($scope.email_test === true && typeof newUser.password !== 'undefined') {
+						registerUser(newUser);
+					} else if ($scope.email_test === false) {
+						$window.alert("Please enter a valid dhfi.com email address if you have selected USER GROUP " + newUser.ugroup);
 
-				.then(function(response) {
-					console.log("success");
-					if (response.data.success) {
-						$window.location.href = "/home";
+					} else {
+						$window.alert("Please enter a password");
 					}
+					
+				} else {
+					var email_regex2 = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+					$scope.email_test = email_regex2.test(newUser.email);
 
-					else {
-						$window.location.href = "/register";;
+					if ($scope.email_test === true) {
+						newUser.password = 'test';
+						registerUser(newUser);
+					} else {
+						$window.alert("Please enter a valid email address");
 					}
-
-				}, function () {
-						alert('Registration failed');
-				})
+				}
 			}
 
 			//functions for home
@@ -99,6 +111,26 @@
 			vm.editDev = function(id) {
 				vm.redirectTo("/developer/update" +"?id=" + id, ['1', '2']);
 			}
+
+
+			function registerUser(newUser) {
+				$http.post("/register", newUser)
+
+				.then(function(response) {
+					console.log("success");
+					if (response.data.success) {
+						$window.location.href = "/home";
+					}
+
+					else {
+						$window.location.href = "/register";;
+					}
+
+				}, function () {
+						alert('Registration failed');
+				})
+			}
+
 		};
 
 		//use locationProvider to prettify urls

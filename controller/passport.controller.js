@@ -48,17 +48,26 @@ module.exports = function (passport) {
         console.log('Request: ' + JSON.stringify(req.body));
         var ugroup = req.body.ugroup;
         var status = req.body.account_status;
-        var passwordEnc = loginService.generateHash(password); // encrypt password before saving to db
-        var validEmail = loginService.validateEmail(email);    // make sure email is unique to database
+        if (typeof password !== 'undefined') {
+            var passwordEnc = loginService.generateHash(password); // encrypt password before saving to db
+        } 
+            
+        var validEmail;
+        if (ugroup === '1' || ugroup === '2') {
+            validEmail = loginService.validateEmail(email);    // check if UGROUP 1 and UGROUP 2 email pattern is valid 
+        } else {
+            validEmail = true;
+        }        
 
         if (validEmail === true) {
+            console.log('email: ' + email);
             process.nextTick(function () {
                 db.find({selector: {username: email}}, function (err, result) {
                     if (err) {
                         return done(null, err);
                     }
 
-                    console.log(result.docs.length);
+                    console.log('Returnded data: ' + result.docs.length);
                     if (result.docs.length === 0) {
                         db.insert({
                             username        : email,
@@ -70,8 +79,8 @@ module.exports = function (passport) {
                                 console.log(err);
                                 return done(null, err);
                             } else {
+                                console.log(result);
                                 return done(null, result, req.flash('signupMessage', 'User ' + email + ' has been added to the DB.'));
-                                  //return done(null, false, req.flash('signupMessage', 'User ' + email + ' has been added to the DB.'));
                             }
              
                         });
