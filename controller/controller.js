@@ -67,7 +67,7 @@
 			vm.signup = function(newUser) {
 				console.log(newUser);
 
-				$scope.email_test = LoginService.checkEmailPattern(newUser.email, newUser.group);
+				$scope.email_test = LoginService.checkEmailPattern(newUser.email, newUser.ugroup);
 				
 				if (newUser.ugroup === '1' || newUser.ugroup === '2') {
 					if ($scope.email_test === true && typeof newUser.password !== 'undefined') {
