@@ -73,7 +73,7 @@
 					if ($scope.email_test === true && typeof newUser.password !== 'undefined') {
 						registerUser(newUser);
 					} else if ($scope.email_test === false) {
-						$window.alert("Please enter a valid dhfi.com email address if you have selected USER GROUP " + newUser.ugroup);
+						$window.alert("Enter a valid dhfi.com email address if you have selected USER GROUP " + newUser.ugroup + '. Please select USER GROUP 3.');
 
 					} else {
 						$window.alert("Please enter a password");
