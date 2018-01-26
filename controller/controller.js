@@ -4,11 +4,26 @@
 	angular
 		.module("app", [])
 		.controller("controller", controller)
-		.config(config);
-		
+		.service('LoginService', function () {
+            this.checkEmailPattern = function (email, ugroup) {
+                var email_test;
+                var email_regex;
 
-		controller.$inject = ["$scope", "$http", "$window"];
-		function controller($scope, $http, $window) {
+                if (ugroup === '1' || ugroup === '2') {
+             	     email_regex = /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(dhfi)\.com$/g;
+                    email_test= email_regex.test(email);
+                } else {
+                    email_regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+					email_test = email_regex.test(email);
+                }
+                
+                return email_test;
+            }
+        })
+		.config(config);
+
+		controller.$inject = ["$scope", "$http", "$window", "LoginService"];
+		function controller($scope, $http, $window, LoginService) {
 			var vm = this;
 
 			vm.redirectTo = function(url, allow) {
@@ -51,12 +66,10 @@
 			//functions for register
 			vm.signup = function(newUser) {
 				console.log(newUser);
-				$scope.email_test = '';
-			
+
+				$scope.email_test = LoginService.checkEmailPattern(newUser.email, newUser.group);
+				
 				if (newUser.ugroup === '1' || newUser.ugroup === '2') {
-					var email_regex1 = /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(dhfi)\.com$/g;
-					$scope.email_test= email_regex1.test(newUser.email);
-	
 					if ($scope.email_test === true && typeof newUser.password !== 'undefined') {
 						registerUser(newUser);
 					} else if ($scope.email_test === false) {
@@ -65,18 +78,16 @@
 					} else {
 						$window.alert("Please enter a password");
 					}
-					
-				} else {
-					var email_regex2 = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-					$scope.email_test = email_regex2.test(newUser.email);
 
+				} else {
 					if ($scope.email_test === true) {
 						newUser.password = 'test';
 						registerUser(newUser);
 					} else {
 						$window.alert("Please enter a valid email address");
 					}
-				}
+				}	
+
 			}
 
 			//functions for home
